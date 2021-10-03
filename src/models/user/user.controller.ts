@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { IUser } from "./user.interface";
-import prisma from "../../providers/prisma";
-import { toNumber } from "../../utils/formats";
+import prisma from "@providers/prisma";
+import { toNumber } from "@utils/formats";
 
 async function create(request: FastifyRequest<{ Body: IUser }>) {
   const { body } = request;
