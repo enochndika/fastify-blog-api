@@ -11,32 +11,121 @@ generator client {
 }
 
 model User {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  username      String      @unique
-  password      String
-  fullName      String
-  role          Role        @default(author)
-  avatar        String?
-  last_logged   DateTime?
-  posts         Post[]
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  username                  String                  @unique
+  password                  String
+  fullName                  String
+  role                      Role                    @default(author)
+  avatar                    String?
+  last_logged               DateTime?
+  posts                     Post[]
+  comments                  Comment[]
+  likes                     LikePost[]
+  childComments             ChildComment[]
+  reportedPosts             ReportPost[]
+  reportedComments          ReportComment[]
+  reportedChildComments     ReportChildComment[]
+}
+
+model Category {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  name                      String
+  posts                     Post[]
 }
 
 model Post {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  title         String      @db.VarChar(255)
-  content       Json?
-  description   String      @db.Text
-  image         String[]
-  promoted      Boolean     @default(false)
-  vip           Boolean     @default(false)
-  read_time     Int
-  fakeContent   String?      @db.Text
-  author        User        @relation(fields: [authorId], references: [id], onUpdate: Cascade, onDelete: Cascade )
-  authorId      Int
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  title                     String                  @db.VarChar(255)
+  content                   Json?
+  description               String                  @db.Text
+  image                     String[]
+  promoted                  Boolean                 @default(false)
+  vip                       Boolean                 @default(false)
+  read_time                 Int
+  fakeContent               String?                 @db.Text
+  author                    User                    @relation(fields: [authorId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  authorId                  Int
+  category                  Category                @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  categoryId                Int
+  comments                  Comment[]
+  likes                     LikePost[]
+  reportedPosts             ReportPost[]
+}
+
+model Comment {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  content                   String                  @db.Text
+  like                      Int
+  post                      Post                    @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  postId                    Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
+  childComments             ChildComment[]
+  reportedComments          ReportComment[]
+}
+
+model ChildComment {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  content                   String                  @db.Text
+  comment                   Comment                 @relation(fields: [commentId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  commentId                 Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
+  reportedChildComments     ReportChildComment[]
+}
+
+model LikePost {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  like                      Int
+  post                      Post                    @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  postId                    Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
+}
+
+model ReportPost {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  subject                   String                  @db.Text
+  post                      Post                    @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  postId                    Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
+}
+
+model ReportComment {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  subject                   String                  @db.Text
+  comment                   Comment                 @relation(fields: [commentId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  commentId                 Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
+}
+
+model ReportChildComment {
+  id                        Int                     @id @default(autoincrement())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+  subject                   String                  @db.Text
+  childComment              ChildComment            @relation(fields: [childCommentId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  childCommentId            Int
+  user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+  userId                    Int
 }
 
 enum Role {
