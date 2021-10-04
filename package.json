@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/faker": "^5.5.8",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^16.10.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
@@ -29,13 +30,14 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "faker": "^5.5.3",
+    "husky": "^7.0.0",
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "prisma": "^3.1.1",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.3",
-    "husky": "^7.0.0"
+    "typescript": "^4.4.3"
   },
   "lint-staged": {
     "**/src*.{js,ts,tsx}": [

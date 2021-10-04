@@ -14,6 +14,7 @@ async function read(
       username,
     },
     select: {
+      id: true,
       username: true,
       password: false,
       fullName: true,
@@ -28,15 +29,43 @@ async function read(
   return user;
 }
 
-async function list() {
-  return prisma.user.findMany({
+async function list(
+  request: FastifyRequest<{
+    Querystring: {
+      page: number;
+      limit: number;
+      sortBy: string;
+    };
+  }>,
+) {
+  const { page = 1, limit = 10 } = request.query;
+  const order = request.query.sortBy || 'id';
+
+  const data = await prisma.user.findMany({
+    orderBy: [
+      {
+        [order]: 'desc',
+      },
+    ],
+    take: limit,
+    skip: (page - 1) * limit,
     select: {
+      id: true,
       username: true,
       password: false,
       fullName: true,
       role: true,
     },
   });
+
+  const count = await prisma.user.count();
+
+  return {
+    count,
+    totalPages: Math.ceil(count / limit),
+    currentPage: toNumber(page),
+    data,
+  };
 }
 
 async function create(request: FastifyRequest<{ Body: IUser }>) {
