@@ -8,6 +8,7 @@ interface IPost {
   read_time: number;
   fakeContent?: string;
   authorId: number;
+  categoryId: number;
 }
 
 interface IPostAuthorId {

@@ -1,10 +1,10 @@
-import { FastifyRequest } from "fastify";
-import prisma from "@providers/prisma";
-import { toNumber } from "@utils/formats";
-import { IPost, IPostAuthorId } from "./post.interface";
+import { FastifyRequest } from 'fastify';
+import prisma from '@providers/prisma';
+import { toNumber } from '@utils/formats';
+import { IPost, IPostAuthorId } from './post.interface';
 
 async function create(
-  request: FastifyRequest<{ Body: IPost; Params: IPostAuthorId }>
+  request: FastifyRequest<{ Body: IPost; Params: IPostAuthorId }>,
 ) {
   const { body, params } = request;
 
@@ -19,6 +19,7 @@ async function create(
       promoted: body.promoted,
       read_time: toNumber(body.read_time),
       authorId: toNumber(params.authorId),
+      categoryId: toNumber(body.categoryId),
     },
   });
 }

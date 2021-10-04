@@ -130,5 +130,5 @@ model ReportChildComment {
 
 enum Role {
  author
- king
+ admin
 }

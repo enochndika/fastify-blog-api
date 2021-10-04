@@ -1,5 +1,5 @@
-import http from "http";
-import { FastifyInstance } from "fastify";
+import http from 'http';
+import { FastifyInstance } from 'fastify';
 
 export interface IFastify
   extends FastifyInstance<
@@ -8,4 +8,5 @@ export interface IFastify
     http.ServerResponse
   > {
   authenticate?: any;
+  adminResource?: any;
 }
