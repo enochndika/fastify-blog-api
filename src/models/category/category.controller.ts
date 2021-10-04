@@ -20,7 +20,7 @@ async function create(request: FastifyRequest<{ Body: ICategory }>) {
 async function update(
   request: FastifyRequest<{ Body: ICategory; Params: { id: string } }>,
 ) {
-  const user = await prisma.category.update({
+  await prisma.category.update({
     where: {
       id: toNumber(request.params.id),
     },
