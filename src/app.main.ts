@@ -9,24 +9,18 @@ addAliases({
 });
 
 import fastify from 'fastify';
-import 'make-promises-safe';
 import dotenv from 'dotenv';
-import jwt from 'fastify-jwt';
+import 'make-promises-safe';
 import services from './app.service';
+import middlewares from './app.middleware';
 
 dotenv.config();
 
 function main(opts = {}) {
   const app = fastify(opts);
 
-  /* Middlewares*/
-  app.register(jwt, {
-    secret: process.env.JWT_SECRET || '12345',
-  });
-  app.register(import('@plugins/authorization'));
-  app.register(import('@plugins/adminResource'));
+  middlewares(app);
 
-  /* Routes Middlewares*/
   services.forEach((service) => {
     app.register(service.name, { prefix: service.prefix });
   });
