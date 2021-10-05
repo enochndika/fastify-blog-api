@@ -3,7 +3,7 @@ import { IUser } from './user.interface';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
 
-async function read(
+async function findUnique(
   request: FastifyRequest<{ Params: { username: string } }>,
   reply: FastifyReply,
 ) {
@@ -111,4 +111,4 @@ async function remove(
   return;
 }
 
-export { create, list, remove, read, update };
+export { create, list, remove, findUnique, update };

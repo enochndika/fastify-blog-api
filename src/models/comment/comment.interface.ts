@@ -4,8 +4,4 @@ interface IComment {
   postId: number;
 }
 
-interface IPostAuthorId {
-  authorId: number;
-}
-
 export { IComment };
