@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { ICategory } from './category.interface';
+import { ICategory, ICategoryParams } from './category.interface';
 
 async function list() {
   return prisma.category.findMany();
@@ -18,9 +18,9 @@ async function create(request: FastifyRequest<{ Body: ICategory }>) {
 }
 
 async function update(
-  request: FastifyRequest<{ Body: ICategory; Params: { id: string } }>,
+  request: FastifyRequest<{ Body: ICategory; Params: ICategoryParams }>,
 ) {
-  await prisma.category.update({
+  return prisma.category.update({
     where: {
       id: toNumber(request.params.id),
     },
@@ -28,21 +28,19 @@ async function update(
       name: request.body.name,
     },
   });
-
-  return { status: 'success', message: 'User updated' };
 }
 
 async function remove(
-  request: FastifyRequest<{ Params: { id: string } }>,
+  request: FastifyRequest<{ Params: ICategoryParams }>,
   reply: FastifyReply,
 ) {
-  await prisma.category.delete({
+  const data = await prisma.category.delete({
     where: {
       id: toNumber(request.params.id),
     },
   });
   reply.statusCode = 204;
-  return;
+  return data;
 }
 
 export { create, list, remove, update };

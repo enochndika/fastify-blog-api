@@ -1,13 +1,12 @@
 import * as commentController from './likePost.controller';
 import { IFastify } from '@utils/fastifyInterface';
 
-async function commentService(fastify: IFastify) {
-  fastify.post('/:postId', commentController.create);
+async function likePostService(fastify: IFastify) {
   fastify.get('/', commentController.list);
+  fastify.post('/:postId', commentController.create);
   fastify.get('/:postId', commentController.listByPost);
-  fastify.put('/:id/:userId', commentController.update);
-  fastify.delete('/user/:id/:userId', commentController.remove);
-  fastify.delete('/admin/:id', commentController.removeByAdmin);
+  fastify.get('/user/:userId', commentController.listByUser);
+  fastify.get('/:id/:userId', commentController.remove);
 }
 
-export default commentService;
+export default likePostService;

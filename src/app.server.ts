@@ -1,4 +1,4 @@
-import main from './app.module';
+import main from './app.main';
 import { IFastify } from '@utils/fastifyInterface';
 
 const server: IFastify = main({

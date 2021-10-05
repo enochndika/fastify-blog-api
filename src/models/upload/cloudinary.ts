@@ -6,7 +6,7 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-async function cloudinaryUpload(file: any) {
+async function cloudinaryUpload(file: string) {
   try {
     const data = await cloudinary?.v2.uploader.upload(file, {
       folder: 'Issou',
@@ -16,7 +16,7 @@ async function cloudinaryUpload(file: any) {
       public_id: data?.public_id,
     };
   } catch (e) {
-    throw Error('An error occurred');
+    throw e;
   }
 }
 

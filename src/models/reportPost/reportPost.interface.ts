@@ -1,7 +1,7 @@
-interface IReportComment {
+interface IReportPost {
   subject: string;
   userId: number;
-  commentId: number;
+  postId: number;
 }
 
-export { IReportComment };
+export { IReportPost };

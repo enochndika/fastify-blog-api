@@ -1,10 +1,10 @@
-import * as reportCommentController from './reportChildComment.controller';
+import * as reportChildCommentController from './reportChildComment.controller';
 import { IFastify } from '@utils/fastifyInterface';
 
-async function reportCommentService(fastify: IFastify) {
-  fastify.post('/:commentId/:userId', reportCommentController.create);
-  fastify.get('/', reportCommentController.list);
-  fastify.delete('/:id', reportCommentController.remove);
+async function reportChildCommentService(fastify: IFastify) {
+  fastify.post('/:childCommentId/:userId', reportChildCommentController.create);
+  fastify.get('/', reportChildCommentController.list);
+  fastify.delete('/:id', reportChildCommentController.remove);
 }
 
-export default reportCommentService;
+export default reportChildCommentService;

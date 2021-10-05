@@ -1,13 +1,13 @@
-import * as commentController from './childComment.controller';
+import * as childCommentController from './childComment.controller';
 import { IFastify } from '@utils/fastifyInterface';
 
-async function commentService(fastify: IFastify) {
-  fastify.post('/:postId', commentController.create);
-  fastify.get('/', commentController.list);
-  fastify.get('/:postId', commentController.listByPost);
-  fastify.put('/:id/:userId', commentController.update);
-  fastify.delete('/user/:id/:userId', commentController.remove);
-  fastify.delete('/admin/:id', commentController.removeByAdmin);
+async function childCommentService(fastify: IFastify) {
+  fastify.post('/:commentId', childCommentController.create);
+  fastify.get('/', childCommentController.list);
+  fastify.get('/:commentId', childCommentController.listByComment);
+  fastify.put('/:id/:userId', childCommentController.update);
+  fastify.delete('/user/:id/:userId', childCommentController.remove);
+  fastify.delete('/admin/:id', childCommentController.removeByAdmin);
 }
 
-export default commentService;
+export default childCommentService;

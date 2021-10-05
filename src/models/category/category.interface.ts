@@ -2,4 +2,8 @@ interface ICategory {
   name: string;
 }
 
-export { ICategory };
+interface ICategoryParams {
+  id: number;
+}
+
+export { ICategory, ICategoryParams };

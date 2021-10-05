@@ -1,20 +1,34 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { IComment } from './comment.interface';
+import { ILikePost } from './likePost.interface';
 
 async function create(
-  request: FastifyRequest<{ Body: IComment; Params: { postId: number } }>,
+  request: FastifyRequest<{
+    Body: ILikePost;
+    Params: { userId: number; postId: number };
+  }>,
+  reply: FastifyReply,
 ) {
   const { body, params } = request;
 
-  return prisma.comment.create({
-    data: {
-      content: body.content,
+  const like = await prisma.likePost.findFirst({
+    where: {
       userId: toNumber(body.userId),
       postId: toNumber(params.postId),
     },
   });
+
+  if (!like) {
+    return prisma.likePost.create({
+      data: {
+        userId: toNumber(body.userId),
+        postId: toNumber(params.postId),
+      },
+    });
+  }
+  reply.statusCode = 400;
+  return { message: 'vous aimez déjà ce post' };
 }
 
 async function list(
@@ -31,7 +45,7 @@ async function list(
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
-  const data = await prisma.comment.findMany({
+  const data = await prisma.likePost.findMany({
     orderBy: [
       {
         [order]: 'desc',
@@ -41,7 +55,7 @@ async function list(
     skip: (page - 1) * limit,
   });
 
-  const count = await prisma.comment.count();
+  const count = await prisma.likePost.count();
 
   return {
     count,
@@ -51,13 +65,12 @@ async function list(
   };
 }
 
-// find all comments of a post
+// get all likes of a post
 async function listByPost(
   request: FastifyRequest<{
     Querystring: {
       page: number;
       limit: number;
-      sortBy: string;
     };
     Params: {
       postId: string;
@@ -65,72 +78,45 @@ async function listByPost(
   }>,
 ) {
   const { query, params } = request;
-  const limit = toNumber(query.limit) || 1;
-  const page = toNumber(query.page) || 1;
-  const order = query.sortBy || 'id';
+  const limit = toNumber(query.limit) || 5000;
 
-  const data = await prisma.comment.findMany({
+  const data = await prisma.likePost.findMany({
     where: {
       postId: toNumber(params.postId),
     },
-    orderBy: [
-      {
-        [order]: 'desc',
-      },
-    ],
     take: limit,
-    skip: (page - 1) * limit,
-    include: {
-      post: {
-        select: {
-          id: true,
-          description: true,
-          createdAt: true,
-        },
-      },
-      user: {
-        select: {
-          id: true,
-          username: true,
-          fullName: true,
-        },
-      },
-    },
-  });
-
-  const count = await prisma.comment.count({
-    where: {
-      postId: toNumber(params.postId),
-    },
   });
 
   return {
-    totalPages: Math.ceil(count / limit),
-    currentPage: toNumber(page),
     data,
   };
 }
 
-async function update(
+// get all likes of a post
+async function listByUser(
   request: FastifyRequest<{
-    Params: {
-      id: string;
-      userId: string;
+    Querystring: {
+      page: number;
+      limit: number;
     };
-    Body: {
-      content: string;
+    Params: {
+      userId: string;
     };
   }>,
 ) {
-  return prisma.comment.updateMany({
+  const { query, params } = request;
+  const limit = toNumber(query.limit) || 5000;
+
+  const data = await prisma.likePost.findMany({
     where: {
-      id: toNumber(request.params.id),
-      userId: toNumber(request.params.userId),
+      userId: toNumber(params.userId),
     },
-    data: {
-      content: request.body.content,
-    },
+    take: limit,
   });
+
+  return {
+    data,
+  };
 }
 
 async function remove(
@@ -142,7 +128,19 @@ async function remove(
   }>,
   reply: FastifyReply,
 ) {
-  await prisma.comment.deleteMany({
+  const like = await prisma.likePost.findFirst({
+    where: {
+      id: toNumber(request.params.id),
+      userId: toNumber(request.params.userId),
+    },
+  });
+
+  if (!like) {
+    reply.statusCode = 404;
+    return {};
+  }
+
+  await prisma.likePost.deleteMany({
     where: {
       id: toNumber(request.params.id),
       userId: toNumber(request.params.userId),
@@ -152,21 +150,4 @@ async function remove(
   return;
 }
 
-async function removeByAdmin(
-  request: FastifyRequest<{
-    Params: {
-      id: string;
-    };
-  }>,
-  reply: FastifyReply,
-) {
-  await prisma.comment.delete({
-    where: {
-      id: toNumber(request.params.id),
-    },
-  });
-  reply.statusCode = 204;
-  return;
-}
-
-export { create, list, listByPost, removeByAdmin, remove, update };
+export { create, list, listByPost, listByUser, remove };

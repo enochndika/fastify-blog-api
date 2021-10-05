@@ -12,14 +12,19 @@
     "seed": "ts-node src/prisma/seed/index.ts"
   },
   "dependencies": {
-    "@prisma/client": "^3.1.1",
+    "@prisma/client": "^3.2.0",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.27.0",
     "dotenv": "^10.0.0",
     "fastify": "^3.21.6",
+    "fastify-file-upload": "^3.0.0",
+    "fastify-formidable": "^1.0.0",
     "fastify-jwt": "^3.1.0",
     "fastify-plugin": "^3.0.0",
     "make-promises-safe": "^5.1.0",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "slugify": "^1.6.1",
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

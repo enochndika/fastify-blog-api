@@ -6,7 +6,7 @@ async function commentService(fastify: IFastify) {
   fastify.get('/', commentController.list);
   fastify.get('/:postId', commentController.listByPost);
   fastify.put('/:id/:userId', commentController.update);
-  fastify.delete('/user/:id/:userId', commentController.remove);
+  fastify.delete('/:id/:userId', commentController.remove);
   fastify.delete('/admin/:id', commentController.removeByAdmin);
 }
 

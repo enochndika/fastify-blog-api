@@ -27,7 +27,7 @@ async function list(
   }>,
 ) {
   const { query } = request;
-  const limit = toNumber(query.limit) || 1;
+  const limit = toNumber(query.limit) || 10;
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
@@ -65,7 +65,7 @@ async function listByPost(
   }>,
 ) {
   const { query, params } = request;
-  const limit = toNumber(query.limit) || 1;
+  const limit = toNumber(query.limit) || 10;
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
@@ -105,8 +105,9 @@ async function listByPost(
   });
 
   return {
+    count,
     totalPages: Math.ceil(count / limit),
-    currentPage: toNumber(page),
+    currentPage: page,
     data,
   };
 }

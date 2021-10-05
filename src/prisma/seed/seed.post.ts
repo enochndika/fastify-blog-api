@@ -56,7 +56,7 @@ async function seedVipPosts() {
         categoryId: toNumber(faker.finance.amount(1, 4, 0)),
         image: [randomPicture],
         read_time: toNumber(faker.finance.amount(1, 8, 0)),
-        vip: false,
+        vip: true,
         promoted: false,
       },
     });

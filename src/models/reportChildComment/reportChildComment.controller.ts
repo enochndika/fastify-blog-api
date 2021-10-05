@@ -1,21 +1,21 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { IReportComment } from './reportComment.interface';
+import { IReportChildComment } from './reportChildComment.interface';
 
 async function create(
   request: FastifyRequest<{
-    Body: IReportComment;
-    Params: { commentId: number; userId: number };
+    Body: IReportChildComment;
+    Params: { childCommentId: number; userId: number };
   }>,
 ) {
   const { body, params } = request;
 
-  return prisma.reportComment.create({
+  return prisma.reportChildComment.create({
     data: {
       subject: body.subject,
       userId: toNumber(params.userId),
-      commentId: toNumber(params.commentId),
+      childCommentId: toNumber(params.childCommentId),
     },
   });
 }
@@ -34,7 +34,7 @@ async function list(
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
-  const data = await prisma.reportComment.findMany({
+  const data = await prisma.reportChildComment.findMany({
     orderBy: [
       {
         [order]: 'desc',
@@ -44,7 +44,7 @@ async function list(
     skip: (page - 1) * limit,
   });
 
-  const count = await prisma.reportComment.count();
+  const count = await prisma.reportChildComment.count();
 
   return {
     count,
@@ -62,7 +62,7 @@ async function remove(
   }>,
   reply: FastifyReply,
 ) {
-  await prisma.reportComment.delete({
+  await prisma.reportChildComment.delete({
     where: {
       id: toNumber(request.params.id),
     },

@@ -1,10 +1,10 @@
-import * as reportCommentController from './reportComment.controller';
+import * as reportCommentController from './reportPost.controller';
 import { IFastify } from '@utils/fastifyInterface';
 
-async function reportCommentService(fastify: IFastify) {
-  fastify.post('/:commentId/:userId', reportCommentController.create);
+async function reportPostService(fastify: IFastify) {
+  fastify.post('/:postId/:userId', reportCommentController.create);
   fastify.get('/', reportCommentController.list);
   fastify.delete('/:id', reportCommentController.remove);
 }
 
-export default reportCommentService;
+export default reportPostService;

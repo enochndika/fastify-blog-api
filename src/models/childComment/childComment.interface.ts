@@ -1,7 +1,7 @@
-interface IComment {
+interface IChildComment {
   content: string;
   userId: number;
-  postId: number;
+  commentId: number;
 }
 
-export { IComment };
+export { IChildComment };

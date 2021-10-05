@@ -1,18 +1,21 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { IComment } from './comment.interface';
+import { IChildComment } from './childComment.interface';
 
 async function create(
-  request: FastifyRequest<{ Body: IComment; Params: { postId: number } }>,
+  request: FastifyRequest<{
+    Body: IChildComment;
+    Params: { commentId: number };
+  }>,
 ) {
   const { body, params } = request;
 
-  return prisma.comment.create({
+  return prisma.childComment.create({
     data: {
       content: body.content,
       userId: toNumber(body.userId),
-      postId: toNumber(params.postId),
+      commentId: toNumber(params.commentId),
     },
   });
 }
@@ -31,7 +34,7 @@ async function list(
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
-  const data = await prisma.comment.findMany({
+  const data = await prisma.childComment.findMany({
     orderBy: [
       {
         [order]: 'desc',
@@ -51,8 +54,8 @@ async function list(
   };
 }
 
-// find all comments of a post
-async function listByPost(
+// find all child comments of a comment
+async function listByComment(
   request: FastifyRequest<{
     Querystring: {
       page: number;
@@ -60,7 +63,7 @@ async function listByPost(
       sortBy: string;
     };
     Params: {
-      postId: string;
+      commentId: string;
     };
   }>,
 ) {
@@ -69,9 +72,9 @@ async function listByPost(
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
-  const data = await prisma.comment.findMany({
+  const data = await prisma.childComment.findMany({
     where: {
-      postId: toNumber(params.postId),
+      commentId: toNumber(params.commentId),
     },
     orderBy: [
       {
@@ -81,13 +84,6 @@ async function listByPost(
     take: limit,
     skip: (page - 1) * limit,
     include: {
-      post: {
-        select: {
-          id: true,
-          description: true,
-          createdAt: true,
-        },
-      },
       user: {
         select: {
           id: true,
@@ -98,9 +94,9 @@ async function listByPost(
     },
   });
 
-  const count = await prisma.comment.count({
+  const count = await prisma.childComment.count({
     where: {
-      postId: toNumber(params.postId),
+      commentId: toNumber(params.commentId),
     },
   });
 
@@ -122,7 +118,7 @@ async function update(
     };
   }>,
 ) {
-  return prisma.comment.updateMany({
+  return prisma.childComment.updateMany({
     where: {
       id: toNumber(request.params.id),
       userId: toNumber(request.params.userId),
@@ -142,7 +138,7 @@ async function remove(
   }>,
   reply: FastifyReply,
 ) {
-  await prisma.comment.deleteMany({
+  await prisma.childComment.deleteMany({
     where: {
       id: toNumber(request.params.id),
       userId: toNumber(request.params.userId),
@@ -160,7 +156,7 @@ async function removeByAdmin(
   }>,
   reply: FastifyReply,
 ) {
-  await prisma.comment.delete({
+  await prisma.childComment.delete({
     where: {
       id: toNumber(request.params.id),
     },
@@ -169,4 +165,4 @@ async function removeByAdmin(
   return;
 }
 
-export { create, list, listByPost, removeByAdmin, remove, update };
+export { create, list, listByComment, removeByAdmin, remove, update };
