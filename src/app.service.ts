@@ -1,6 +1,6 @@
 const services = [
   {
-    name: import('./auth/auth.service'),
+    name: import('@auth/auth.service'),
     prefix: '/api/auth',
   },
   {
@@ -16,7 +16,7 @@ const services = [
     prefix: '/api/post-categories',
   },
   {
-    name: import('./models/comment/comment.service'),
+    name: import('@models/comment/comment.service'),
     prefix: '/api/comments',
   },
 ];
