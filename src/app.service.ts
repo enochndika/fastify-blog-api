@@ -15,6 +15,10 @@ const services = [
     name: import('@models/category/category.service'),
     prefix: '/api/post-categories',
   },
+  {
+    name: import('./models/comment/comment.service'),
+    prefix: '/api/comments',
+  },
 ];
 
 export default services;

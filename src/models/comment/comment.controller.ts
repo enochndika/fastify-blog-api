@@ -1,25 +1,18 @@
 import { FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { IPost, IPostAuthorId } from './post.interface';
+import { IComment } from './comment.interface';
 
 async function create(
-  request: FastifyRequest<{ Body: IPost; Params: IPostAuthorId }>,
+  request: FastifyRequest<{ Body: IComment; Params: { postId: number } }>,
 ) {
   const { body, params } = request;
 
-  return prisma.post.create({
+  return prisma.comment.create({
     data: {
-      title: body.title,
       content: body.content,
-      fakeContent: body.fakeContent,
-      description: body.description,
-      image: body.image,
-      vip: body.vip,
-      promoted: body.promoted,
-      read_time: toNumber(body.read_time),
-      authorId: toNumber(params.authorId),
-      categoryId: toNumber(body.categoryId),
+      userId: toNumber(body.userId),
+      postId: toNumber(params.postId),
     },
   });
 }
@@ -38,7 +31,7 @@ async function list(
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
-  const data = await prisma.post.findMany({
+  const data = await prisma.comment.findMany({
     orderBy: [
       {
         [order]: 'desc',
@@ -48,7 +41,7 @@ async function list(
     skip: (page - 1) * limit,
   });
 
-  const count = await prisma.post.count();
+  const count = await prisma.comment.count();
 
   return {
     count,

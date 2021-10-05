@@ -33,7 +33,7 @@ model Category {
   id                        Int                     @id @default(autoincrement())
   createdAt                 DateTime                @default(now())
   updatedAt                 DateTime                @updatedAt
-  name                      String
+  name                      String                  @unique
   posts                     Post[]
 }
 
@@ -63,7 +63,6 @@ model Comment {
   createdAt                 DateTime                @default(now())
   updatedAt                 DateTime                @updatedAt
   content                   String                  @db.Text
-  like                      Int
   post                      Post                    @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade )
   postId                    Int
   user                      User                    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade )

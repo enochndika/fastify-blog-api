@@ -38,8 +38,10 @@ async function list(
     };
   }>,
 ) {
-  const { page = 1, limit = 10 } = request.query;
-  const order = request.query.sortBy || 'id';
+  const { query } = request;
+  const limit = toNumber(query.limit) || 1;
+  const page = toNumber(query.page) || 1;
+  const order = query.sortBy || 'id';
 
   const data = await prisma.user.findMany({
     orderBy: [
@@ -84,7 +86,7 @@ async function create(request: FastifyRequest<{ Body: IUser }>) {
 async function update(
   request: FastifyRequest<{ Body: IUser; Params: { id: string } }>,
 ) {
-  const user = await prisma.user.update({
+  await prisma.user.update({
     where: {
       id: toNumber(request.params.id),
     },

@@ -6,7 +6,7 @@ async function seedUser() {
   const avatar = Math.floor(Math.random() * avatars.length);
   const randomAvatar = avatars[avatar];
 
-  for (let i = 0; i < 100; i++) {
+  for (let a = 0; a < 50; a++) {
     await prisma.user.create({
       data: {
         username: faker.name.firstName().toLowerCase(),
