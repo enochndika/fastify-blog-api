@@ -288,7 +288,6 @@ async function listByTrends(
   const count = await prisma.post.count({ where: { promoted: true } });
 
   return {
-    count,
     totalPages: Math.ceil(count / limit),
     currentPage: toNumber(page),
     data,
@@ -398,7 +397,6 @@ async function listVip(
   const count = await prisma.post.count({ where: { vip: true } });
 
   return {
-    count,
     totalPages: Math.ceil(count / limit),
     currentPage: toNumber(page),
     data,

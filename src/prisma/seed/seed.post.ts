@@ -3,11 +3,11 @@ import prisma from '../../providers/prisma';
 import pictures from '../../utils/pictures';
 import { toNumber } from '../../utils/formats';
 
-const picture = Math.floor(Math.random() * pictures.length);
-const randomPicture = pictures[picture];
-
 async function seedAll() {
   for (let b = 0; b < 100; b++) {
+    const picture = Math.floor(Math.random() * pictures.length);
+    const randomPicture = pictures[picture];
+
     await prisma.post.create({
       data: {
         title: faker.commerce.productName(),
@@ -27,6 +27,9 @@ async function seedAll() {
 
 async function seedPromotedPosts() {
   for (let b = 0; b < 25; b++) {
+    const picture = Math.floor(Math.random() * pictures.length);
+    const randomPicture = pictures[picture];
+
     await prisma.post.create({
       data: {
         title: faker.commerce.productName(),
@@ -46,6 +49,9 @@ async function seedPromotedPosts() {
 
 async function seedVipPosts() {
   for (let d = 0; d < 25; d++) {
+    const picture = Math.floor(Math.random() * pictures.length);
+    const randomPicture = pictures[picture];
+
     await prisma.post.create({
       data: {
         title: faker.commerce.productName(),
