@@ -1,5 +1,5 @@
 /* Array of pictures which will allows to generate blog post picture*/
-const pictures = [
+const pictures: Array<string> = [
   'https://media.istockphoto.com/photos/writing-a-blog-blogger-influencer-reading-text-on-screen-picture-id1198931639?b=1&k=6&m=1198931639&s=170667a&w=0&h=gHik9zgP0aQZdS4xSHtHVZow7IihPXU64iPAH1LoInk=',
   'https://media.istockphoto.com/photos/business-video-conference-picture-id1214822053?b=1&k=6&m=1214822053&s=170667a&w=0&h=OOvmgk8mAADNEKl0o29HswPvTmos69XlGUxp31LBu_g=',
   'https://cdn.pixabay.com/photo/2015/05/31/10/55/man-791049__340.jpg',

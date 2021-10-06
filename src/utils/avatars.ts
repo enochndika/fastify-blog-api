@@ -1,5 +1,5 @@
 /* Array of pictures which will allows to generate user profil picture*/
-const avatars = [
+const avatars: Array<string> = [
   'https://media.istockphoto.com/photos/beautiful-smiling-girl-with-curly-hairstyle-picture-id1189894212?b=1&k=6&m=1189894212&s=170667a&w=0&h=BsNgQEC5eZPBe98BwRr2E9wdI_GhxZHjRlGXng5lDac=',
   'https://cdn.pixabay.com/photo/2016/11/22/06/05/girl-1848454__340.jpg',
   'https://cdn.pixabay.com/photo/2017/05/13/12/40/fashion-2309519__340.jpg',
