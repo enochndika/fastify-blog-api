@@ -1,5 +1,5 @@
-import server from "../app.server";
-import { IUser } from "@models/user/user.interface";
+import server from '../../app.server';
+import { IUser } from '@models/user/user.interface';
 
 function generateJWT(user: IUser) {
   const today = new Date();
@@ -14,7 +14,7 @@ function generateJWT(user: IUser) {
   return {
     token: server.jwt.sign(payload, {
       expiresIn: parseInt(String(expirationDate.getTime() / 1000), 10),
-      issuer: "Enoch Ndika",
+      issuer: 'Enoch Ndika',
     }),
   };
 }

@@ -1,12 +1,12 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { IUser } from "@models/user/user.interface";
-import prisma from "@providers/prisma";
-import generateJWT from "./jwt.strategy";
-import validatePassword from "./validatePassword";
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { IUser } from '@models/user/user.interface';
+import prisma from '@providers/prisma';
+import generateJWT from './jwt.strategy';
+import validatePassword from './validatePassword';
 
 async function signIn(
   request: FastifyRequest<{ Body: IUser }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) {
   const { password, username } = request.body;
 
@@ -27,7 +27,7 @@ async function signIn(
 
   if (!isValidated) {
     reply.statusCode = 400;
-    return { message: "Mot de passe incorrect" };
+    return { message: 'Mot de passe incorrect' };
   }
 
   await prisma.user.update({

@@ -1,6 +1,6 @@
 const services = [
   {
-    name: import('@auth/auth.service'),
+    name: import('@models/auth/auth.service'),
     prefix: '/api/auth',
   },
   {
