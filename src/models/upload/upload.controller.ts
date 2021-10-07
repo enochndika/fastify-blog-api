@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import cloudinaryUpload from '@models/upload/cloudinary';
 
@@ -10,9 +11,13 @@ async function uploadFile(
   reply: FastifyReply,
 ) {
   const files = request.files as any;
-  const data = await cloudinaryUpload(files?.image.path);
+  const path = files?.picture?.path;
+  const data = await cloudinaryUpload(path);
 
-  reply.send(data);
+  if (data) {
+    await fs.unlinkSync(path);
+    reply.send(data);
+  }
 }
 
 export { uploadFile };

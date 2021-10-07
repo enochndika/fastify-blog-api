@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { IUser } from '@models/user/user.interface';
 import prisma from '@providers/prisma';
 import generateJWT from './jwt.strategy';
 import validatePassword from './validatePassword';
+import { IUser } from '@models/user/user.interface';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 async function signIn(
   request: FastifyRequest<{ Body: IUser }>,

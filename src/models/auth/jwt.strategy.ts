@@ -11,12 +11,10 @@ function generateJWT(user: IUser) {
     role: user.role,
   };
 
-  return {
-    token: server.jwt.sign(payload, {
-      expiresIn: parseInt(String(expirationDate.getTime() / 1000), 10),
-      issuer: 'Enoch Ndika',
-    }),
-  };
+  return server.jwt.sign(payload, {
+    expiresIn: parseInt(String(expirationDate.getTime() / 1000), 10),
+    issuer: 'Enoch Ndika',
+  });
 }
 
 export default generateJWT;

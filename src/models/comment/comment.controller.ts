@@ -93,6 +93,7 @@ async function listByPost(
           id: true,
           username: true,
           fullName: true,
+          avatar: true,
         },
       },
     },

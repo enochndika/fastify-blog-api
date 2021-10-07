@@ -89,6 +89,7 @@ async function listByComment(
           id: true,
           username: true,
           fullName: true,
+          avatar: true,
         },
       },
     },

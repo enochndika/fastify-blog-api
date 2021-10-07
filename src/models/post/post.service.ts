@@ -6,7 +6,7 @@ async function postService(fastify: IFastify) {
   fastify.get('/read/:slug', postController.findUnique);
   fastify.get('/', postController.list);
   fastify.post('/:authorId', postController.create);
-  fastify.put('/:id', postController.update);
+  fastify.put('/:id/:authorId', postController.update);
   fastify.delete('/:id/:authorId', postController.remove);
   fastify.delete('/:id', postController.removeByAdmin);
 

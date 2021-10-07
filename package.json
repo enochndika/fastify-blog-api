@@ -17,6 +17,7 @@
     "cloudinary": "^1.27.0",
     "dotenv": "^10.0.0",
     "fastify": "^3.21.6",
+    "fastify-cors": "^6.0.2",
     "fastify-file-upload": "^3.0.0",
     "fastify-formidable": "^1.0.0",
     "fastify-jwt": "^3.1.0",

@@ -4,7 +4,8 @@ import { toNumber } from '@utils/formats';
 import { ICategory, ICategoryParams } from './category.interface';
 
 async function list() {
-  return prisma.category.findMany();
+  const data = await prisma.category.findMany();
+  return { data };
 }
 
 async function create(request: FastifyRequest<{ Body: ICategory }>) {

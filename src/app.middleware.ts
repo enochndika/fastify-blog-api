@@ -1,8 +1,14 @@
 import jwt from 'fastify-jwt';
 import FastifyFormidable from 'fastify-formidable';
 import { IFastify } from '@utils/fastifyInterface';
+import fastifyCors from 'fastify-cors';
 
 function middlewares(fastify: IFastify) {
+  fastify.register(fastifyCors, {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  });
+
   fastify.register(FastifyFormidable, {
     addContentTypeParser: true,
     formidable: {

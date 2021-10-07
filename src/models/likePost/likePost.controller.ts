@@ -5,16 +5,15 @@ import { ILikePost } from './likePost.interface';
 
 async function create(
   request: FastifyRequest<{
-    Body: ILikePost;
     Params: { userId: number; postId: number };
   }>,
   reply: FastifyReply,
 ) {
-  const { body, params } = request;
+  const { params } = request;
 
   const like = await prisma.likePost.findFirst({
     where: {
-      userId: toNumber(body.userId),
+      userId: toNumber(params.userId),
       postId: toNumber(params.postId),
     },
   });
@@ -22,7 +21,7 @@ async function create(
   if (!like) {
     return prisma.likePost.create({
       data: {
-        userId: toNumber(body.userId),
+        userId: toNumber(params.userId),
         postId: toNumber(params.postId),
       },
     });
@@ -41,7 +40,7 @@ async function list(
   }>,
 ) {
   const { query } = request;
-  const limit = toNumber(query.limit) || 1;
+  const limit = toNumber(query.limit) || 10;
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
@@ -87,8 +86,16 @@ async function listByPost(
     take: limit,
   });
 
+  const count = await prisma.likePost.count({
+    where: {
+      postId: toNumber(params.postId),
+    },
+    take: limit,
+  });
+
   return {
     data,
+    count,
   };
 }
 
@@ -122,7 +129,7 @@ async function listByUser(
 async function remove(
   request: FastifyRequest<{
     Params: {
-      id: string;
+      postId: string;
       userId: string;
     };
   }>,
@@ -130,7 +137,7 @@ async function remove(
 ) {
   const like = await prisma.likePost.findFirst({
     where: {
-      id: toNumber(request.params.id),
+      postId: toNumber(request.params.postId),
       userId: toNumber(request.params.userId),
     },
   });
@@ -142,7 +149,7 @@ async function remove(
 
   await prisma.likePost.deleteMany({
     where: {
-      id: toNumber(request.params.id),
+      postId: toNumber(request.params.postId),
       userId: toNumber(request.params.userId),
     },
   });

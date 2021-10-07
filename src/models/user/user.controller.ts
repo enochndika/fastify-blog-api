@@ -9,7 +9,7 @@ async function findUnique(
 ) {
   const { username } = request.params;
 
-  const user = await prisma.user.findUnique({
+  const data = await prisma.user.findUnique({
     where: {
       username,
     },
@@ -19,14 +19,15 @@ async function findUnique(
       password: false,
       fullName: true,
       role: true,
+      avatar: true,
     },
   });
 
-  if (!user) {
+  if (!data) {
     reply.statusCode = 404;
     return {};
   }
-  return user;
+  return { data };
 }
 
 async function list(
@@ -39,7 +40,7 @@ async function list(
   }>,
 ) {
   const { query } = request;
-  const limit = toNumber(query.limit) || 1;
+  const limit = toNumber(query.limit) || 10;
   const page = toNumber(query.page) || 1;
   const order = query.sortBy || 'id';
 
@@ -57,6 +58,9 @@ async function list(
       password: false,
       fullName: true,
       role: true,
+      createdAt: true,
+      updatedAt: true,
+      last_logged: true,
     },
   });
 

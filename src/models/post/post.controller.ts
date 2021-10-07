@@ -100,13 +100,17 @@ async function list(
 }
 
 async function update(
-  request: FastifyRequest<{ Body: IPost; Params: { id: string } }>,
+  request: FastifyRequest<{
+    Body: IPost;
+    Params: { id: string; authorId: number };
+  }>,
 ) {
   const { body, params } = request;
 
-  return prisma.post.update({
+  return prisma.post.updateMany({
     where: {
       id: toNumber(params.id),
+      authorId: toNumber(params.authorId),
     },
     data: {
       title: body.title,
