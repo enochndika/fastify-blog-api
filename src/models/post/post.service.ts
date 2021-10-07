@@ -5,10 +5,38 @@ async function postService(fastify: IFastify) {
   /* CRUD */
   fastify.get('/read/:slug', postController.findUnique);
   fastify.get('/', postController.list);
-  fastify.post('/:authorId', postController.create);
-  fastify.put('/:id/:authorId', postController.update);
-  fastify.delete('/:id/:authorId', postController.remove);
-  fastify.delete('/:id', postController.removeByAdmin);
+
+  fastify.post(
+    '/:authorId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    postController.create,
+  );
+
+  fastify.put(
+    '/:id/:authorId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    postController.update,
+  );
+
+  fastify.delete(
+    '/:id/:authorId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    postController.remove,
+  );
+
+  fastify.delete(
+    '/:id',
+    {
+      preValidation: [fastify.authenticate, fastify.adminResource],
+    },
+    postController.removeByAdmin,
+  );
 
   /* FILTERS */
   fastify.get('/category/:categoryId', postController.listByCategory);

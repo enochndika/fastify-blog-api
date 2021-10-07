@@ -2,12 +2,40 @@ import * as commentController from './comment.controller';
 import { IFastify } from '@utils/fastifyInterface';
 
 async function commentService(fastify: IFastify) {
-  fastify.post('/:postId', commentController.create);
   fastify.get('/', commentController.list);
   fastify.get('/:postId', commentController.listByPost);
-  fastify.put('/:id/:userId', commentController.update);
-  fastify.delete('/:id/:userId', commentController.remove);
-  fastify.delete('/admin/:id', commentController.removeByAdmin);
+
+  fastify.post(
+    '/:postId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    commentController.create,
+  );
+
+  fastify.put(
+    '/:id/:userId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    commentController.update,
+  );
+
+  fastify.delete(
+    '/:id/:userId',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    commentController.remove,
+  );
+
+  fastify.delete(
+    '/admin/:id',
+    {
+      preValidation: [fastify.authenticate],
+    },
+    commentController.removeByAdmin,
+  );
 }
 
 export default commentService;

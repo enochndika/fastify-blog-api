@@ -67,7 +67,6 @@ async function list(
   const count = await prisma.user.count();
 
   return {
-    count,
     totalPages: Math.ceil(count / limit),
     currentPage: toNumber(page),
     data,
