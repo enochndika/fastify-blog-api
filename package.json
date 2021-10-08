@@ -9,8 +9,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/app.server.js",
     "dev": "nodemon src/app.server.ts",
-    "format": "prettier '*/**/*.{js,ts,tsx,ts}' --write",
-    "lint": "prettier '*/**/*.{js,ts,tsx,ts}' --fix",
+    "format": "prettier '*/**/*.{js,ts}' --write",
+    "lint": "prettier '*/**/*.{js,ts}' --fix",
     "prepare": "husky install"
   },
   "prisma": {

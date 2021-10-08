@@ -1,5 +1,5 @@
-import * as childCommentController from './childComment.controller';
 import { IFastify } from '@utils/fastifyInterface';
+import * as childCommentController from './childComment.controller';
 
 async function childCommentService(fastify: IFastify) {
   fastify.get('/', childCommentController.list);

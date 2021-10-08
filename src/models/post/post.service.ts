@@ -1,5 +1,6 @@
-import * as postController from './post.controller';
 import { IFastify } from '@utils/fastifyInterface';
+import * as postController from './post.controller';
+import postSchema from '@models/post/post.validator';
 
 async function postService(fastify: IFastify) {
   /* CRUD */
@@ -9,7 +10,7 @@ async function postService(fastify: IFastify) {
   fastify.post(
     '/:authorId',
     {
-      preValidation: [fastify.authenticate],
+      schema: postSchema,
     },
     postController.create,
   );

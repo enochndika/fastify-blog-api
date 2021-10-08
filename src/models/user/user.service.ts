@@ -1,8 +1,10 @@
 import { IFastify } from '@utils/fastifyInterface';
 import * as userController from './user.controller';
+import userSchema from '@models/user/user.validator';
 
 async function userService(fastify: IFastify) {
   fastify.get('/:username', userController.findUnique);
+  fastify.post('/', { schema: userSchema }, userController.create);
 
   fastify.get(
     '/',
@@ -11,8 +13,6 @@ async function userService(fastify: IFastify) {
     },
     userController.list,
   );
-
-  fastify.post('/', userController.create);
 
   fastify.put(
     '/:id',

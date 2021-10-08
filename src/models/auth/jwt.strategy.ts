@@ -4,7 +4,7 @@ import { IUser } from '@models/user/user.interface';
 function generateJWT(user: IUser) {
   const today = new Date();
   const expirationDate = new Date(today);
-  expirationDate.setDate(today.getDate() + 60);
+  expirationDate.setDate(today.getDate() + 30);
 
   const payload = {
     username: user.username,
