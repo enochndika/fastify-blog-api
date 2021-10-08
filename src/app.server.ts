@@ -5,7 +5,9 @@ const server: IFastify = main({
   logger: true,
 });
 
-server.listen(process.env.PORT || 80, (err) => {
+const port = process.env.PORT || 80;
+
+server.listen(port, (err) => {
   if (err) {
     console.log(err);
     process.exit(1);

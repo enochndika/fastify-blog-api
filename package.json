@@ -18,8 +18,7 @@
     "prepare": "husky install"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma",
-    "seed": "ts-node src/prisma/seed/index.ts"
+    "schema": "src/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^3.2.0",
