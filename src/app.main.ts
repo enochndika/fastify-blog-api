@@ -21,6 +21,10 @@ function main(opts = {}) {
 
   middlewares(app);
 
+  app.get('/', async () => {
+    return 'Welcome!';
+  });
+
   services.forEach((service) => {
     app.register(service.name, { prefix: service.prefix });
   });
