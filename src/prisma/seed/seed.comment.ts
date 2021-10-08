@@ -9,6 +9,7 @@ async function seedComment() {
         content: faker.lorem.paragraph(),
         userId: toNumber(faker.finance.amount(1, 20, 0)),
         postId: toNumber(faker.finance.amount(1, 22, 0)),
+        createdAt: faker.date.between('2021-05-15', '2021-10-01'),
       },
     });
   }

@@ -81,7 +81,6 @@ async function create(request: FastifyRequest<{ Body: IUser }>) {
       username: body.username,
       password: body.password,
       fullName: body.fullName,
-      role: body.role,
     },
   });
 }

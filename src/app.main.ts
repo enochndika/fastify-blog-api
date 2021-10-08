@@ -14,7 +14,9 @@ import 'make-promises-safe';
 import services from './app.service';
 import middlewares from './app.middleware';
 
-dotenv.config();
+dotenv.config({
+  path: '.env',
+});
 
 function main(opts = {}) {
   const app = fastify(opts);

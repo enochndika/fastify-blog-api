@@ -5,7 +5,7 @@ import { IFastify } from '@utils/fastifyInterface';
 
 function middlewares(fastify: IFastify) {
   fastify.register(fastifyCors, {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://blogger-six.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
 

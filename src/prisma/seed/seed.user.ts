@@ -13,6 +13,7 @@ async function seedUser() {
         fullName: faker.name.firstName() + ' ' + faker.name.lastName(),
         password: 'secret',
         avatar: randomAvatar,
+        createdAt: faker.date.between('2020-02-01', '2020-03-01'),
       },
     });
   }

@@ -20,6 +20,7 @@ async function seedAll() {
         read_time: toNumber(faker.finance.amount(1, 8, 0)),
         vip: false,
         promoted: false,
+        createdAt: faker.date.between('2020-02-01', '2021-05-15'),
       },
     });
   }
@@ -42,6 +43,7 @@ async function seedPromotedPosts() {
         read_time: toNumber(faker.finance.amount(1, 8, 0)),
         vip: false,
         promoted: true,
+        createdAt: faker.date.between('2020-02-01', '2021-05-15'),
       },
     });
   }
@@ -64,6 +66,7 @@ async function seedVipPosts() {
         read_time: toNumber(faker.finance.amount(1, 8, 0)),
         vip: true,
         promoted: false,
+        createdAt: faker.date.between('2020-02-01', '2021-05-15'),
       },
     });
   }

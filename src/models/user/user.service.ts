@@ -12,13 +12,7 @@ async function userService(fastify: IFastify) {
     userController.list,
   );
 
-  fastify.post(
-    '/',
-    {
-      preValidation: [fastify.authenticate],
-    },
-    userController.create,
-  );
+  fastify.post('/', userController.create);
 
   fastify.put(
     '/:id',
