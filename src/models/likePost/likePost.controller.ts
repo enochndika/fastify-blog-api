@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import prisma from '@providers/prisma';
 import { toNumber } from '@utils/formats';
-import { ILikePost } from './likePost.interface';
 
 async function create(
   request: FastifyRequest<{
@@ -119,6 +118,27 @@ async function listByUser(
       userId: toNumber(params.userId),
     },
     take: limit,
+    include: {
+      post: {
+        select: {
+          id: true,
+          description: true,
+          image: true,
+          read_time: true,
+          slug: true,
+          category: {
+            select: {
+              name: true,
+            },
+          },
+          author: {
+            select: {
+              fullName: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   return {

@@ -1,7 +1,7 @@
 import jwt from 'fastify-jwt';
+import fastifyCors from 'fastify-cors';
 import FastifyFormidable from 'fastify-formidable';
 import { IFastify } from '@utils/fastifyInterface';
-import fastifyCors from 'fastify-cors';
 
 function middlewares(fastify: IFastify) {
   fastify.register(fastifyCors, {
