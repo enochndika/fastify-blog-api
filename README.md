@@ -35,9 +35,9 @@ npx prisma migrate deploy
 ```
 
 ```bash
-  npx prisma db seed
-  # to seed the database with data 
-  # this create 4 categories, 150 posts, 50 users and 100 comments
+npx prisma db seed
+# to seed the database with data 
+# this create 4 categories, 150 posts, 50 users and 100 comments
 ```
 
 Then you can run `npm run dev` or `yarn dev` to start the dev server.
