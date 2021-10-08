@@ -7,11 +7,6 @@ const server: IFastify = main({
 
 const port = process.env.PORT || 80;
 
-server.listen(port, (err) => {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-});
+server.listen(port, '0.0.0.0').then((r) => console.log(r));
 
 export default server;
