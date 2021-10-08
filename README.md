@@ -43,7 +43,8 @@ npx prisma db seed
 Then you can run `npm run dev` or `yarn dev` to start the dev server.
 
 
-##Production Build
+## Production Build
+
 You can build the project with `npm run build` or `yarn build`.
 
 This will create a `dist` folder.
