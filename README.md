@@ -48,3 +48,9 @@ Then you can run `npm run dev` or `yarn dev` to start the dev server.
 You can build the project with `npm run build` or `yarn build`.
 
 This will create a `dist` folder.
+
+## Frontend (App)
+You can find the front end app [Here](https://github.com/enochndika/blog-post).
+
+It's a Next.js app with Typescript
+
