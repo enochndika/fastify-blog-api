@@ -9,7 +9,7 @@ cloudinary.v2.config({
 async function cloudinaryUpload(file: string) {
   try {
     const data = await cloudinary?.v2.uploader.upload(file, {
-      folder: 'Issou',
+      folder: 'Blogging',
     });
     return {
       url: data?.secure_url,

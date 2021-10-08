@@ -1,6 +1,14 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Enoch Ndika"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enochndika/fastify-blog-api"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/app.server.js",
@@ -53,5 +61,8 @@
       "eslint '*/**/*.{js,ts}' --fix",
       "prettier '*/**/*.{js,ts}' --write"
     ]
+  },
+  "engines": {
+    "node": "^14.x"
   }
 }
