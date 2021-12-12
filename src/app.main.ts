@@ -22,13 +22,10 @@ function main(opts = {}) {
   const app = fastify(opts);
 
   middlewares(app);
+  services(app);
 
   app.get('/', async () => {
     return 'Welcome!';
-  });
-
-  services.forEach((service) => {
-    app.register(service.name, { prefix: service.prefix });
   });
 
   return app;

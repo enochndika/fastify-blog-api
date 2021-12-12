@@ -27,7 +27,7 @@ async function signIn(
 
   if (!isValidated) {
     reply.statusCode = 400;
-    return { message: 'Mot de passe incorrect' };
+    return { message: 'Incorrect password' };
   }
 
   await prisma.user.update({

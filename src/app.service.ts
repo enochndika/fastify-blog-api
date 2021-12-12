@@ -1,4 +1,6 @@
-const services = [
+import { IFastify } from '@utils/fastifyInterface';
+
+const data = [
   {
     name: import('@models/auth/auth.service'),
     prefix: '/api/auth',
@@ -44,5 +46,11 @@ const services = [
     prefix: '/api/upload',
   },
 ];
+
+const services = (fastify: IFastify) => {
+  data.forEach((service) => {
+    fastify.register(service.name, { prefix: service.prefix });
+  });
+};
 
 export default services;
